@@ -1,23 +1,53 @@
 import React, { useState } from 'react';
-import './SubtractionGame.css';  
+import './SubtractionGame.css';
 
 const SubtractionGame = () => {
-    const [firstNum, setFirstNum] = useState(getRandomNumber());
-    const [secondNum, setSecondNum] = useState(getRandomNumber());
+    
+    const equationPool = [
+        { firstNum: 10, secondNum: 0 }, { firstNum: 10, secondNum: 1 }, { firstNum: 10, secondNum: 2 },
+        { firstNum: 10, secondNum: 3 }, { firstNum: 10, secondNum: 4 }, { firstNum: 10, secondNum: 5 },
+        { firstNum: 10, secondNum: 6 }, { firstNum: 10, secondNum: 7 }, { firstNum: 10, secondNum: 8 },
+        { firstNum: 10, secondNum: 9 }, { firstNum: 10, secondNum: 10 },
+        { firstNum: 9, secondNum: 0 }, { firstNum: 9, secondNum: 1 }, { firstNum: 9, secondNum: 2 },
+        { firstNum: 9, secondNum: 3 }, { firstNum: 9, secondNum: 4 }, { firstNum: 9, secondNum: 5 },
+        { firstNum: 9, secondNum: 6 }, { firstNum: 9, secondNum: 7 }, { firstNum: 9, secondNum: 8 },
+        { firstNum: 9, secondNum: 9 },
+        { firstNum: 8, secondNum: 0 }, { firstNum: 8, secondNum: 1 }, { firstNum: 8, secondNum: 2 },
+        { firstNum: 8, secondNum: 3 }, { firstNum: 8, secondNum: 4 }, { firstNum: 8, secondNum: 5 },
+        { firstNum: 8, secondNum: 6 }, { firstNum: 8, secondNum: 7 }, { firstNum: 8, secondNum: 8 },
+        { firstNum: 7, secondNum: 0 }, { firstNum: 7, secondNum: 1 }, { firstNum: 7, secondNum: 2 },
+        { firstNum: 7, secondNum: 3 }, { firstNum: 7, secondNum: 4 }, { firstNum: 7, secondNum: 5 },
+        { firstNum: 7, secondNum: 6 }, { firstNum: 7, secondNum: 7 },
+        { firstNum: 6, secondNum: 0 }, { firstNum: 6, secondNum: 1 }, { firstNum: 6, secondNum: 2 },
+        { firstNum: 6, secondNum: 3 }, { firstNum: 6, secondNum: 4 }, { firstNum: 6, secondNum: 5 },
+        { firstNum: 6, secondNum: 6 },
+        { firstNum: 5, secondNum: 0 }, { firstNum: 5, secondNum: 1 }, { firstNum: 5, secondNum: 2 },
+        { firstNum: 5, secondNum: 3 }, { firstNum: 5, secondNum: 4 }, { firstNum: 5, secondNum: 5 },
+        { firstNum: 4, secondNum: 0 }, { firstNum: 4, secondNum: 1 }, { firstNum: 4, secondNum: 2 },
+        { firstNum: 4, secondNum: 3 }, { firstNum: 4, secondNum: 4 },
+        { firstNum: 3, secondNum: 0 }, { firstNum: 3, secondNum: 1 }, { firstNum: 3, secondNum: 2 },
+        { firstNum: 3, secondNum: 3 },
+        { firstNum: 2, secondNum: 0 }, { firstNum: 2, secondNum: 1 }, { firstNum: 2, secondNum: 2 },
+        { firstNum: 1, secondNum: 0 }, { firstNum: 1, secondNum: 1 }
+    ];
+
+
+    const getRandomEquation = () => {
+        const randomIndex = Math.floor(Math.random() * equationPool.length);
+        return equationPool[randomIndex];
+    };
+
+ 
+    const [firstNum, setFirstNum] = useState(getRandomEquation().firstNum);
+    const [secondNum, setSecondNum] = useState(getRandomEquation().secondNum);
     const [answer, setAnswer] = useState('');
     const [feedback, setFeedback] = useState('');
 
-    function getRandomNumber() {
-        return Math.floor(Math.random() * 11);
-    }
-
-    function getSecondNum(firstNum) {
-        return Math.floor(Math.random() * (firstNum + 1)); 
-    }
-
+  
     const handleInputChange = (e) => {
         setAnswer(e.target.value);
     };
+
 
     const checkAnswer = () => {
         const correctAnswer = firstNum - secondNum;
@@ -28,9 +58,9 @@ const SubtractionGame = () => {
         }
 
         setTimeout(() => {
-            const newFirstNum = getRandomNumber();
-            setFirstNum(newFirstNum);
-            setSecondNum(getSecondNum(newFirstNum));
+            const newEquation = getRandomEquation();
+            setFirstNum(newEquation.firstNum);
+            setSecondNum(newEquation.secondNum);
             setAnswer('');
             setFeedback('');
         }, 2000);
