@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './SubtractionGame.css';
 
 const SubtractionGame = () => {
-    
     const equationPool = [
         { firstNum: 10, secondNum: 0 }, { firstNum: 10, secondNum: 1 }, { firstNum: 10, secondNum: 2 },
         { firstNum: 10, secondNum: 3 }, { firstNum: 10, secondNum: 4 }, { firstNum: 10, secondNum: 5 },
@@ -31,23 +30,19 @@ const SubtractionGame = () => {
         { firstNum: 1, secondNum: 0 }, { firstNum: 1, secondNum: 1 }
     ];
 
-
     const getRandomEquation = () => {
         const randomIndex = Math.floor(Math.random() * equationPool.length);
         return equationPool[randomIndex];
     };
 
- 
     const [firstNum, setFirstNum] = useState(getRandomEquation().firstNum);
     const [secondNum, setSecondNum] = useState(getRandomEquation().secondNum);
     const [answer, setAnswer] = useState('');
     const [feedback, setFeedback] = useState('');
 
-  
     const handleInputChange = (e) => {
         setAnswer(e.target.value);
     };
-
 
     const checkAnswer = () => {
         const correctAnswer = firstNum - secondNum;
@@ -66,6 +61,13 @@ const SubtractionGame = () => {
         }, 2000);
     };
 
+    // Handle Enter key press
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            checkAnswer();
+        }
+    };
+
     return (
         <div className="container">
             <h1 className="header">Subtraction Flash Cards</h1>
@@ -77,6 +79,7 @@ const SubtractionGame = () => {
                     type="number"
                     value={answer}
                     onChange={handleInputChange}
+                    onKeyDown={handleKeyDown} 
                     className="input"
                     autoFocus
                 />
